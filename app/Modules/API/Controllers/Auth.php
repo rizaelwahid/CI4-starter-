@@ -12,17 +12,17 @@ class Auth extends ResourceController
 	use ResponseTrait;
 	protected $authModel;
 
-    public function __construct()
-    {
-        $this->authModel = new AuthModel();
-    }
+	public function __construct()
+	{
+		$this->authModel = new AuthModel();
+	}
 
 	public function index()
-	{  
-        $data = [ "name" => "John Doe", "email" => "john@mail.com" ];
+	{
+		$data = ["name" => "John Doe", "email" => "john@mail.com"];
 		return view("\Modules\API\Views\index", $data);
 	}
-	
+
 	public function privateKey()
 	{
 		$privateKey = <<<EOD
@@ -50,23 +50,23 @@ class Auth extends ResourceController
 	{
 		$nip            = $this->request->getVar('nip');
 		// $nip            = '197703232000031003';
-        $sysPassword   = $this->request->getVar('sysPassword');
-        // $sysPassword   = '123456';
+		$sysPassword   = $this->request->getVar('sysPassword');
+		// $sysPassword   = '123456';
 
-        $pegawai = $this->authModel->getAuth($nip);
+		$pegawai = $this->authModel->getAuth($nip);
 
 		// dd($pegawai);
 
-        if ($pegawai) {
-            if ($pegawai['0']['sysActive'] == 'y') {
-                if ($pegawai['0']['sysPassword'] == sha1($sysPassword)) {
-                    $secretKeys			= $this->privateKey();
+		if ($pegawai) {
+			if ($pegawai['0']['sysActive'] == 'y') {
+				if ($pegawai['0']['sysPassword'] == sha1($sysPassword)) {
+					$secretKeys			= $this->privateKey();
 					$issue_claim		= 'THE_CLAIM';
 					$audience_claim		= 'THE_AUDIENCE';
 					$issuedate_claim	= time();
 					$notbefore_claim	= $issuedate_claim + 10;
 					$expire_claim		= $issuedate_claim + 3000;
-					
+
 					$payload = array(
 						"iss" 	=> $issue_claim,
 						"aud" 	=> $issue_claim,
@@ -74,7 +74,7 @@ class Auth extends ResourceController
 						"nbf" 	=> $notbefore_claim,
 						"exp" 	=> $expire_claim
 					);
-					
+
 					$token = JWT::encode($payload, $secretKeys);
 
 					$status = [
@@ -85,32 +85,31 @@ class Auth extends ResourceController
 						'data'		=> $pegawai
 					];
 					return $this->respond($status, 200);
-
-                } else {
+				} else {
 					$status = [
 						'status'	=> 401,
 						'message'	=> 'Password tidak cocok dengan akun yang terdaftar'
 					];
 					return $this->respond($status, 401);
-                }
-            } else {
+				}
+			} else {
 				$status = [
 					'status'	=> 401,
 					'message'	=> 'Akun belum diaktifkan'
 				];
 				return $this->respond($status, 401);
-            }
-        } else {
+			}
+		} else {
 			$status = [
 				'status'	=> 401,
 				'message'	=> 'Akun tidak terdaftar'
 			];
 			return $this->respond($status, 401);
-        }
+		}
 	}
 
 	public function otherMethod()
 	{
-		echo "This is other method from Auth Module";
+		echo "This is other method from Auth controller in API Module";
 	}
 }

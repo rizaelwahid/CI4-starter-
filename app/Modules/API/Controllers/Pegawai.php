@@ -1,4 +1,5 @@
 <?php
+
 namespace Modules\API\Controllers;
 
 use CodeIgniter\RESTful\ResourceController;
@@ -18,23 +19,23 @@ class Pegawai extends ResourceController
 	use ResponseTrait;
 	protected $pegawaiModel;
 
-    public function __construct()
-    {
-        $this->forKey = new Auth();
-        $this->pegawaiModel = new PegawaiModel();
-    }
+	public function __construct()
+	{
+		$this->forKey = new Auth();
+		$this->pegawaiModel = new PegawaiModel();
+	}
 
 	public function index()
-	{  
-        $secretKey		= $this->forKey->privateKey();
+	{
+		$secretKey		= $this->forKey->privateKey();
 		$token			= null;
 		$authHeader		= $this->request->getServer('HTTP_AUTHORIZATION');
 		$arr			= explode(' ', $authHeader);
 		$token			= $arr[1];
 
-        $id_pegawai = $this->request->getVar('id_pegawai');
+		$id_pegawai = $this->request->getVar('id_pegawai');
 		$pegawai 	= $this->pegawaiModel->getPegawai($id_pegawai);
-		
+
 		if ($token) {
 			try {
 				$decoded	= JWT::decode($token, $secretKey, array('HS256'));
@@ -62,5 +63,5 @@ class Pegawai extends ResourceController
 				return $this->respond($status, 400);
 			}
 		}
-	}	
+	}
 }

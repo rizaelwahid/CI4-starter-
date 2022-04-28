@@ -39,11 +39,18 @@ class Autoload extends AutoloadConfig
 	 *
 	 * @var array<string, string>
 	 */
+
+	/**
+	 * -------------------------------------------------------------------
+	 * Adding More Modules Here
+	 * -------------------------------------------------------------------
+	 */
 	public $psr4 = [
 		APP_NAMESPACE => APPPATH, // For custom app namespace
 		'Config'      => APPPATH . 'Config',
-		'Modules\API' => ROOTPATH. 'Modules/API',
 		'Firebase'    => APPPATH . 'Thirdparty/Firebase',
+		'Modules\API' => ROOTPATH . 'App/Modules/API',
+		'Modules\Ipanel' => ROOTPATH . 'App/Modules/Ipanel',
 	];
 
 	/**

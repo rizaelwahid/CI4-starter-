@@ -19,6 +19,6 @@ class AuthModel extends Model
 
     public function getAuth($nip)
     {
-        return $this->db->query('SELECT ms_pegawai.id_pegawai, ms_pegawai.nip, ms_pegawai.gelardpn, ms_pegawai.gelarblk, ms_pegawai.nama, rip_sysaccess.* FROM `ms_pegawai` LEFT JOIN `rip_sysaccess` ON `rip_sysaccess`.id_pegawai = `ms_pegawai`.id_pegawai WHERE ms_pegawai.`nip` = "'.$nip.'"')->getResultArray();        
+        return $this->db->query('SELECT ms_pegawai.id_pegawai, ms_pegawai.nip, ms_pegawai.gelardpn, ms_pegawai.gelarblk, ms_pegawai.nama, rip_sysaccess.* FROM `ms_pegawai` LEFT JOIN `rip_sysaccess` ON `rip_sysaccess`.id_pegawai = `ms_pegawai`.id_pegawai WHERE ms_pegawai.`nip` = "' . $nip . '"')->getResultArray();
     }
 }
