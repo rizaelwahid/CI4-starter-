@@ -50,7 +50,7 @@ class Autoload extends AutoloadConfig
 		'Config'      => APPPATH . 'Config',
 		'Firebase'    => APPPATH . 'Thirdparty/Firebase',
 		'Modules\API' => ROOTPATH . 'App/Modules/API',
-		'Modules\Ipanel' => ROOTPATH . 'App/Modules/Ipanel',
+		'Modules\Dashboard' => ROOTPATH . 'App/Modules/Dashboard',
 	];
 
 	/**

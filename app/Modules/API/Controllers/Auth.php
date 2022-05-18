@@ -55,17 +55,16 @@ class Auth extends ResourceController
 
 		$pegawai = $this->authModel->getAuth($nip);
 
-		// dd($pegawai);
-
 		if ($pegawai) {
 			if ($pegawai['0']['sysActive'] == 'y') {
 				if ($pegawai['0']['sysPassword'] == sha1($sysPassword)) {
 					$secretKeys			= $this->privateKey();
 					$issue_claim		= 'THE_CLAIM';
-					$audience_claim		= 'THE_AUDIENCE';
+					// $audience_claim		= 'THE_AUDIENCE';
 					$issuedate_claim	= time();
 					$notbefore_claim	= $issuedate_claim + 10;
 					$expire_claim		= $issuedate_claim + 3000;
+					$alg 				= 'HS256';
 
 					$payload = array(
 						"iss" 	=> $issue_claim,
@@ -75,11 +74,11 @@ class Auth extends ResourceController
 						"exp" 	=> $expire_claim
 					);
 
-					$token = JWT::encode($payload, $secretKeys);
+					$token = JWT::encode($payload, $secretKeys, $alg);
 
 					$status = [
 						'status'	=> 200,
-						'message'	=> 'Berhasil!',
+						'message'	=> 'Success!',
 						'token'		=> $token,
 						'expired'	=> $expire_claim,
 						'data'		=> $pegawai
@@ -110,6 +109,12 @@ class Auth extends ResourceController
 
 	public function otherMethod()
 	{
-		echo "This is other method from Auth controller in API Module";
+		$segment = $this->request->uri->getSegment(3);
+
+		$status = [
+			'status'	=> 200,
+			'message'	=> 'This is other method from Auth controller in API Module with data segment value = ' . $segment
+		];
+		return $this->respond($status, 200);
 	}
 }

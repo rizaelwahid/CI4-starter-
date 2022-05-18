@@ -1,9 +1,9 @@
 <?php
 
-namespace Modules\Ipanel\Controllers;
+namespace Modules\Dashboard\Controllers;
 
 use App\Controllers\BaseController;
-// use Modules\Ipanel\Models\MenuModel;
+// use Modules\Dashboard\Models\MenuModel;
 
 class Menu extends BaseController
 {
@@ -16,7 +16,7 @@ class Menu extends BaseController
 
     public function index()
     {
-        print 'This Is Menu Page from Ipanel Module';
+        print 'This Is Menu Page from Dashboard Module';
         exit;
     }
 }

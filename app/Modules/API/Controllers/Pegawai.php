@@ -4,6 +4,7 @@ namespace Modules\API\Controllers;
 
 use CodeIgniter\RESTful\ResourceController;
 use CodeIgniter\API\ResponseTrait;
+use Firebase\JWT\Key;
 use \Firebase\JWT\JWT;
 use Modules\API\Controllers\Auth;
 use Modules\API\Models\PegawaiModel;
@@ -33,12 +34,12 @@ class Pegawai extends ResourceController
 		$arr			= explode(' ', $authHeader);
 		$token			= $arr[1];
 
-		$id_pegawai = $this->request->getVar('id_pegawai');
+		$id_pegawai = $this->request->uri->getSegment(2);
 		$pegawai 	= $this->pegawaiModel->getPegawai($id_pegawai);
 
 		if ($token) {
 			try {
-				$decoded	= JWT::decode($token, $secretKey, array('HS256'));
+				$decoded	= JWT::decode($token,  new Key($secretKey, 'HS256'));
 				if ($decoded) {
 					if ($pegawai['0']['id_pegawai']) {
 						$status = [
@@ -49,7 +50,7 @@ class Pegawai extends ResourceController
 					} else {
 						$status = [
 							'status' 	=> false,
-							'message'	=> 'id ' . $id_pegawai . 'not found',
+							'message'	=> 'Data with id ' . $id_pegawai . ' not found',
 						];
 						return $this->respond($status, 404);
 					}
