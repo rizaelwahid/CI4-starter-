@@ -20,6 +20,6 @@ class FirstLoad extends BaseController
 
     public function index()
     {
-        return redirect()->to('/home');
+        return redirect()->to('/dashboard');
     }
 }

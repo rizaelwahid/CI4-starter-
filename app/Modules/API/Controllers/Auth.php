@@ -63,7 +63,7 @@ class Auth extends ResourceController
 					// $audience_claim		= 'THE_AUDIENCE';
 					$issuedate_claim	= time();
 					$notbefore_claim	= $issuedate_claim + 10;
-					$expire_claim		= $issuedate_claim + 3000;
+					$expire_claim		= $issuedate_claim + (60 * 525600); // 6 sec * 525600 min = 1 year in Calendar Year
 					$alg 				= 'HS256';
 
 					$payload = array(

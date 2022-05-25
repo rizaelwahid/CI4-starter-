@@ -14,5 +14,6 @@ and any database settings.
 
 ## What Features Inside The Starter
 
-- Modules: the HMVC structure
-- JWT Integrated
+- HMVC structure support
+- JWT integrated
+- Dynamic multi template
