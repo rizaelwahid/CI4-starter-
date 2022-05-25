@@ -16,8 +16,10 @@ if (file_exists(SYSTEMPATH . 'Config/Routes.php')) {
  * Router Setup
  * --------------------------------------------------------------------
  */
-$routes->setDefaultNamespace('App\Controllers');
-$routes->setDefaultController('Home');
+// $routes->setDefaultNamespace('App\Controllers');
+$routes->setDefaultNamespace('Modules\Dashboard\Controllers');
+// $routes->setDefaultController('Home');
+$routes->setDefaultController('Dashboard');
 $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
@@ -32,7 +34,7 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 // $routes->get('/', 'Home::index');
-$routes->get('/', 'FirstLoad::index');
+$routes->get('/', 'Dashboard::index');
 
 /*
  * --------------------------------------------------------------------
@@ -51,26 +53,22 @@ if (file_exists(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php')) {
 	require APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php';
 }
 
-//.. Other routes
+# Routes API Module 
+$routes->group("auth", ["namespace" => "\Modules\API\Controllers"], function ($routes) {
+	$routes->get("/", "Auth::index");
+	$routes->get("other/(:num)", "Auth::otherMethod/$1");
+	$routes->post("login", "Auth::login");
+});
 
-// Add this to Footer
+$routes->group("pegawai", ["namespace" => "\Modules\API\Controllers"], function ($routes) {
+	$routes->get("(:num)", "Pegawai::index/$1");
+});
 
-// Including all module routes
+# Routes Dashboard Module 
+$routes->group("dashboard", ["namespace" => "\Modules\Dashboard\Controllers"], function ($routes) {
+	$routes->get("/", "Dashboard::index");
+});
 
-$modules_path = ROOTPATH . 'App/Modules/';
-$modules = scandir($modules_path);
-
-foreach ($modules as $module) {
-	if ($module === '.' || $module === '..') {
-		continue;
-	}
-
-	if (is_dir($modules_path) . '/' . $module) {
-		$routes_path = $modules_path . $module . '/Config/Routes.php';
-		if (file_exists($routes_path)) {
-			require $routes_path;
-		} else {
-			continue;
-		}
-	}
-}
+$routes->group("menu", ["namespace" => "\Modules\Dashboard\Controllers"], function ($routes) {
+	$routes->get("/", "Menu::index");
+});
