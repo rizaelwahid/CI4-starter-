@@ -34,26 +34,26 @@ class Pegawai extends ResourceController
 		$arr			= explode(' ', $authHeader);
 		$token			= $arr[1];
 
-		$id_pegawai = $this->request->uri->getSegment(2);
+		$id_pegawai = htmlspecialchars($this->request->uri->getSegment(2));
 		$pegawai 	= $this->pegawaiModel->getPegawai($id_pegawai);
 
-		if ($token) {
+		if ($token) :
 			try {
 				$decoded	= JWT::decode($token,  new Key($secretKey, 'HS256'));
 				if ($decoded) {
-					if ($pegawai['0']['id_pegawai']) {
+					if ($pegawai['0']['id_pegawai']) :
 						$status = [
 							'status' => true,
 							'data' 	 => $pegawai
 						];
 						return $this->respond($status, 200);
-					} else {
+					else :
 						$status = [
 							'status' 	=> false,
 							'message'	=> 'Data with id ' . $id_pegawai . ' not found',
 						];
 						return $this->respond($status, 404);
-					}
+					endif;
 				}
 			} catch (\Exception $error) {
 				$status = [
@@ -63,6 +63,6 @@ class Pegawai extends ResourceController
 				];
 				return $this->respond($status, 400);
 			}
-		}
+		endif;
 	}
 }

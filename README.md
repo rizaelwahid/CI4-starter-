@@ -14,6 +14,8 @@ and any database settings.
 
 ## What Features Inside The Starter
 
-- HMVC structure support
+- Support HMVC structure
+- Permission managament with RBAC
+- Website setting manager
 - JWT integrated
 - Dynamic multi template

@@ -1,0 +1,375 @@
+/* table */
+  .table > tbody > tr * {
+    vertical-align: middle;
+  }
+  
+  .table-white,
+  .table-white > th,
+  .table-white > td {
+    background-color: #ffffff;
+  }
+  
+  .table-white th,
+  .table-white td,
+  .table-white thead th,
+  .table-white tbody + tbody {
+    border-color: #cfd1d6;
+  }
+  
+  .table-hover .table-white:hover {
+    background-color: #b6b8be;
+  }
+  
+  .table-hover .table-white:hover > td,
+  .table-hover .table-white:hover > th {
+    background-color: #b6b8be;
+  }
+  
+  .table-softgrey,
+  .table-softgrey > th,
+  .table-softgrey > td {
+    background-color: #eff0f3;
+  }
+  
+  .table-softgrey th,
+  .table-softgrey td,
+  .table-softgrey thead th,
+  .table-softgrey tbody + tbody {
+    border-color: #cfd1d6;
+  }
+  
+  .table-hover .table-softgrey:hover {
+    background-color: #b6b8be;
+  }
+  
+  .table-hover .table-softgrey:hover > td,
+  .table-hover .table-softgrey:hover > th {
+    background-color: #b6b8be;
+  }
+  
+  .table-grey,
+  .table-grey > th,
+  .table-grey > td {
+    background-color: #e3e6f0;
+  }
+  
+  .table-grey th,
+  .table-grey td,
+  .table-grey thead th,
+  .table-grey tbody + tbody {
+    border-color: #cfd1d6;
+  }
+  
+  .table-hover .table-grey:hover {
+    background-color: #b6b8be;
+  }
+  
+  .table-hover .table-grey:hover > td,
+  .table-hover .table-grey:hover > th {
+    background-color: #b6b8be;
+  }
+  
+  .table-darkgrey,
+  .table-darkgrey > th,
+  .table-darkgrey > td {
+    background-color: #d0d5e0;
+  }
+  
+  .table-darkgrey th,
+  .table-darkgrey td,
+  .table-darkgrey thead th,
+  .table-darkgrey tbody + tbody {
+    border-color: #cfd1d6;
+  }
+  
+  .table-hover .table-darkgrey:hover {
+    background-color: #b6b8be;
+  }
+  
+  .table-hover .table-darkgrey:hover > td,
+  .table-hover .table-darkgrey:hover > th {
+    background-color: #b6b8be;
+  }
+  
+  .bg-gradient-white {
+    background-color: #ffffff;
+    background-image: linear-gradient(180deg, #ffffff 10%, #ffffff 100%);
+    background-size: cover;
+  }
+  
+  /* switchbox */
+  
+  .switchbox {
+    background: transparent;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+  }
+  
+  input[type="checkbox"].switch {
+    font-size: 14px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 2.5em;
+    height: 1.5em;
+    background: #ddd;
+    border-radius: 3em;
+    position: relative;
+    cursor: pointer;
+    outline: none;
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  input[type="checkbox"].switch:checked {
+    background: #1572e8;
+  }
+  
+  input[type="checkbox"].switch:after {
+    position: absolute;
+    content: "";
+    width: 1.5em;
+    height: 1.5em;
+    border-radius: 50%;
+    background: #fff;
+    -webkit-box-shadow: 0 0 0.25em rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 0.25em rgba(0, 0, 0, 0.3);
+    -webkit-transform: scale(0.7);
+    transform: scale(0.7);
+    left: 0;
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  input[type="checkbox"].switch:checked:after {
+    left: calc(100% - 1.5em);
+  }
+  /* end switchbox */
+  
+  /* Start daterangepicker */
+  .daterangepicker .ranges li {
+    color: #73879c;
+  }
+  .daterangepicker .ranges li.active,
+  .daterangepicker .ranges li:hover {
+    background: #536a7f;
+    border: 1px solid #536a7f;
+    color: #fff;
+  }
+  .daterangepicker .input-mini {
+    background-color: #eee;
+    border: 1px solid #ccc;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+  }
+  .daterangepicker .input-mini.active {
+    border: 1px solid #ccc;
+  }
+  .daterangepicker select.monthselect,
+  .daterangepicker select.yearselect,
+  .daterangepicker select.hourselect,
+  .daterangepicker select.minuteselect,
+  .daterangepicker select.secondselect,
+  .daterangepicker select.ampmselect {
+    font-size: 12px;
+    padding: 1px;
+    height: auto;
+    margin: 0;
+    cursor: default;
+    height: 30px;
+    border: 1px solid #adb2b5;
+    line-height: 30px;
+    border-radius: 0px !important;
+  }
+  .daterangepicker select.monthselect {
+    margin-right: 2%;
+  }
+  .daterangepicker td.in-range {
+    background: #e4e7ea;
+    color: #73879c;
+  }
+  .daterangepicker td.active,
+  .daterangepicker td.active:hover {
+    background-color: #536a7f;
+    color: #fff;
+  }
+  .daterangepicker th.available:hover {
+    background: #eee;
+    color: #34495e;
+  }
+  .daterangepicker:before,
+  .daterangepicker:after {
+    content: none;
+  }
+  .daterangepicker .calendar.single {
+    margin: 0 0 4px 0;
+  }
+  .daterangepicker .calendar.single .calendar-table {
+    width: 224px;
+    padding: 0 0 4px 0 !important;
+  }
+  .daterangepicker .calendar.single .calendar-table thead tr:first-child th {
+    padding: 8px 5px;
+  }
+  .daterangepicker .calendar.single .calendar-table thead th {
+    border-radius: 0;
+  }
+  .daterangepicker.picker_1 {
+    color: #fff;
+    background: #34495e;
+  }
+  .daterangepicker.picker_1 .calendar-table {
+    background: #34495e;
+  }
+  .daterangepicker.picker_1 .calendar-table thead tr {
+    background: #213345;
+  }
+  .daterangepicker.picker_1 .calendar-table thead tr:first-child {
+    background: #1abb9c;
+  }
+  .daterangepicker.picker_1 .calendar-table td.off {
+    background: #34495e;
+    color: #999;
+  }
+  .daterangepicker.picker_1 .calendar-table td.available:hover {
+    color: #34495e;
+  }
+  .daterangepicker.picker_2 .calendar-table thead tr {
+    color: #1abb9c;
+  }
+  .daterangepicker.picker_2 .calendar-table thead tr:first-child {
+    color: #73879c;
+  }
+  .daterangepicker.picker_3 .calendar-table thead tr:first-child {
+    color: #fff;
+    background: #1abb9c;
+  }
+  .daterangepicker.picker_4 .calendar-table thead tr:first-child {
+    color: #fff;
+    background: #34495e;
+  }
+  .daterangepicker.picker_4 .calendar-table td,
+  .daterangepicker.picker_4 .calendar-table td.off {
+    background: #ecf0f1;
+    border: 1px solid #fff;
+    border-radius: 0;
+  }
+  .daterangepicker.picker_4 .calendar-table td.active {
+    background: #34495e;
+  }
+  .calendar-exibit .show-calendar {
+    float: none;
+    display: block;
+    position: relative;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+  }
+  .calendar-exibit .show-calendar .calendar {
+    margin: 0 0 4px 0;
+  }
+  .calendar-exibit .show-calendar.picker_1 {
+    background: #34495e;
+  }
+  .calendar-exibit .calendar-table {
+    padding: 0 0 4px 0;
+  }
+  /* End daterangepicker */
+  
+  /* Start Tags input */
+  .bootstrap-tagsinput {
+    background-color: #ffffff;
+    display: inline-block;
+    padding: 4px 6px;
+    color: #555;
+    vertical-align: middle;
+    border-radius: 4px;
+    max-width: 100%;
+    line-height: 22px;
+    cursor: text;
+  }
+  .bootstrap-tagsinput input {
+    border: none;
+    box-shadow: none;
+    outline: none;
+    background-color: transparent;
+    padding: 0 6px;
+    margin: 0;
+    width: auto;
+    max-width: inherit;
+  }
+  .bootstrap-tagsinput.form-control input::-moz-placeholder {
+    color: #777;
+    opacity: 1;
+  }
+  .bootstrap-tagsinput.form-control input:-ms-input-placeholder,
+  .bootstrap-tagsinput.form-control input::-webkit-input-placeholder {
+    color: #777;
+  }
+  .bootstrap-tagsinput input:focus {
+    border: none;
+    box-shadow: none;
+  }
+  .bootstrap-tagsinput .tag {
+    margin-right: 2px;
+    margin-bottom: 10px;
+  }
+  .bootstrap-tagsinput .tag [data-role="remove"] {
+    margin-left: 8px;
+    cursor: pointer;
+  }
+  .bootstrap-tagsinput .tag [data-role="remove"]:after {
+    content: "x";
+    padding: 0px 2px;
+  }
+  .bootstrap-tagsinput .tag [data-role="remove"]:hover {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2),
+      0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+  .bootstrap-tagsinput .tag [data-role="remove"]:hover:active {
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  }
+  /* End Tags input */
+  
+  /* Div  */
+  .row.no-gutter {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .row.no-gutter [class*="col-"]:not(:first-child),
+  .row.no-gutter [class*="col-"]:not(:last-child) {
+    padding-right: 0;
+    padding-left: 0;
+  }
+  
+  /* countdown */
+#timer div {
+    background-color: #3f86e4;
+    color: #ffffff;
+    width: 100px;
+    height: 105px;
+    border-radius: 5px;
+    font-size: 35px;
+    font-weight: 700;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#timer div span {
+    display: block;
+    margin-top: -2px;
+    font-size: 15px;
+    font-weight: 500;
+}

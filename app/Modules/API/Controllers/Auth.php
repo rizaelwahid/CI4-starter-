@@ -48,16 +48,14 @@ class Auth extends ResourceController
 
 	public function login()
 	{
-		$nip            = $this->request->getVar('nip');
-		// $nip            = '197703232000031003';
-		$sysPassword   = $this->request->getVar('sysPassword');
-		// $sysPassword   = '123456';
+		$nip            = htmlspecialchars($this->request->getVar('nip'));
+		$sysPassword   	= htmlspecialchars($this->request->getVar('sysPassword'));
 
 		$pegawai = $this->authModel->getAuth($nip);
 
-		if ($pegawai) {
-			if ($pegawai['0']['sysActive'] == 'y') {
-				if ($pegawai['0']['sysPassword'] == sha1($sysPassword)) {
+		if ($pegawai) :
+			if ($pegawai['0']['sysActive'] == 'y') :
+				if ($pegawai['0']['sysPassword'] == sha1($sysPassword)) :
 					$secretKeys			= $this->privateKey();
 					$issue_claim		= 'THE_CLAIM';
 					// $audience_claim		= 'THE_AUDIENCE';
@@ -84,27 +82,27 @@ class Auth extends ResourceController
 						'data'		=> $pegawai
 					];
 					return $this->respond($status, 200);
-				} else {
+				else :
 					$status = [
 						'status'	=> 401,
 						'message'	=> 'Password tidak cocok dengan akun yang terdaftar'
 					];
 					return $this->respond($status, 401);
-				}
-			} else {
+				endif;
+			else :
 				$status = [
 					'status'	=> 401,
 					'message'	=> 'Akun belum diaktifkan'
 				];
 				return $this->respond($status, 401);
-			}
-		} else {
+			endif;
+		else :
 			$status = [
 				'status'	=> 401,
 				'message'	=> 'Akun tidak terdaftar'
 			];
 			return $this->respond($status, 401);
-		}
+		endif;
 	}
 
 	public function otherMethod()

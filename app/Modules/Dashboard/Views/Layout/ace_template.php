@@ -4,7 +4,7 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta charset="utf-8" />
-    <title><?= $Title; ?> | <?= $AppConf['SiteName']; ?></title>
+    <title><?= $title; ?> | <?= $AppConf['SiteName']; ?></title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
@@ -185,7 +185,7 @@
 
                     <li class="light-blue dropdown-modal">
                         <a data-toggle="dropdown" href="#" class="dropdown-toggle">
-                            <img class="nav-user-photo" src="/assets/layouts/img/avatars/user.jpg " alt="Jason's Photo" />
+                            <img class="nav-user-photo" src="/assets/images/avatars/user.jpg " alt="Jason's Photo" />
                             <span class="user-info">
                                 <small>Welcome,</small>
                                 Arizal </span>
