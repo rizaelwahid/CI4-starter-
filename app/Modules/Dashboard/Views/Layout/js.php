@@ -1,7 +1,11 @@
 <?php
+helper('cookie');
 $jsData['sweetalertMin']    = 'plugin/sweetalert/sweetalert.min.js';
 $jsData['select2']          = 'plugin/select2/select2.min.js';
 $jsData['tagsinput']        = 'plugin/bootstrap-tagsinput/bootstrap-tagsinput.min.js';
+$jsData['summernote']       = 'plugin/summernote/summernote-bs4.min.js';
+$jsData['moment']           = 'plugin/moment/moment.min.js';
+$jsData['datepicker']       = 'plugin/datepicker/bootstrap-datetimepicker.min.js';
 ?>
 
 <?php foreach ($jsData as $key => $value) : ?>
@@ -15,10 +19,10 @@ $jsData['tagsinput']        = 'plugin/bootstrap-tagsinput/bootstrap-tagsinput.mi
 <script type="text/javascript" src="/assets/layouts/js/custome.js"></script>
 
 <?php
-$logo       = 'blue'; // dark, blue, purple, light-blue, green, orange, red, white,  dark2, blue2, purple2, light-blue2, green2, orange2, red2
-$navbar     = 'blue2'; // dark, blue, purple, light-blue, green, orange, red, white, dark2, blue2, purple2, light-blue2, green2, orange2, red2
-$sidebar    = 'white'; // white, dark, dark2
-$background = 'blue'; // bg2, bg1, bg3, dark, blue
+$logo       = (get_cookie('logo') != NULL) ? get_cookie('logo') : 'blue';
+$navbar     = (get_cookie('navbar') != NULL) ? get_cookie('navbar') : 'blue2';
+$sidebar    = (get_cookie('sidebar') != NULL) ? get_cookie('sidebar') : 'white';
+$background = (get_cookie('background') != NULL) ? get_cookie('background') : 'white';
 ?>
 
 <script type="text/javascript">
@@ -157,6 +161,33 @@ $background = 'blue'; // bg2, bg1, bg3, dark, blue
                         document.location.href = "/permission/accesscontrol/";
                     }
                 });
+            });
+        <?php
+        endif;
+        ?>
+        <?php
+        if ($value == 'summernote') :
+        ?>
+            $('#summernote').summernote({
+                placeholder: 'Please input about site',
+                fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New'],
+                tabsize: 2,
+                height: 300
+            });
+        <?php
+        endif;
+        ?>
+        <?php
+        if ($value == 'datepicker') :
+        ?>
+            $('#datetime').datetimepicker({
+                format: 'H:mm',
+            });
+            $('#datepicker').datetimepicker({
+                format: 'YYYY-MM-DD',
+            });
+            $('#timepicker').datetimepicker({
+                format: 'h:mm A',
             });
         <?php
         endif;

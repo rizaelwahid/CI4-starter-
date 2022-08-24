@@ -273,64 +273,113 @@ class User extends BaseController
 
     public function resetpassword($user_id)
     {
-        if (count($this->request->getPost()) <= 0) :
-            $data = [
-                'title'         => 'User',
-                'AppConf'       => $this->AppConfig->index(),
-                'validation'    => \config\Services::validation(),
-                'user'          => $this->UserModel->getUserById($user_id)->first(),
-                'viewer'       => 'reset'
-            ];
+        $data = [
+            'title'         => 'User',
+            'AppConf'       => $this->AppConfig->index(),
+            'validation'    => \config\Services::validation(),
+            'user'          => $this->UserModel->getUserById($user_id)->first(),
+            'viewer'       => 'reset'
+        ];
 
-            $data['css']            = [''];
-            $data['js']             = [''];
-            $data['NewJavaScript']  = [''];
-            return view('\Modules\Dashboard\Views\User', $data);
+        $data['css']            = [''];
+        $data['js']             = [''];
+        $data['NewJavaScript']  = [''];
+        return view('\Modules\Dashboard\Views\User', $data);
+    }
+
+    public function resetPasswordProcess($user_id)
+    {
+        $rules = [
+            'password'          => 'required',
+            'newpassword'       => 'required|min_length[6]',
+            'repeatpassword'    => 'required|matches[newpassword]|min_length[6]',
+        ];
+
+        $segment2          = htmlspecialchars($this->request->getVar('segment2'));
+
+        if (!$this->validate($rules)) :
+            return redirect()->to('/user/' . $segment2 . '/' . $user_id)->withInput();
+        endif;
+
+        $auth              = $this->UserModel->where(['user_id' => session()->user_id])->first();
+
+        $password          = htmlspecialchars($this->request->getVar('password'));
+        $newpassword       = htmlspecialchars($this->request->getVar('newpassword'));
+
+        if (!password_verify($password, $auth['password'])) :
+            session()->setFlashdata('boo', 'Your password login is wrong, make sure you have authority to change the password.');
+            return redirect()->to('/user/' . $segment2 . '/' . $user_id)->withInput();
         else :
-            $rules = [
-                'password'          => 'required',
-                'newpassword'       => 'required|min_length[6]',
-                'repeatpassword'    => 'required|matches[newpassword]|min_length[6]',
-            ];
-
-            if (!$this->validate($rules)) :
-                return redirect()->to('/user/resetpassword/' . $user_id)->withInput();
-            endif;
-
-            $auth              = $this->UserModel->where(['user_id' => session()->user_id])->first();
-
-            $password          = htmlspecialchars($this->request->getVar('password'));
-            $newpassword       = htmlspecialchars($this->request->getVar('newpassword'));
-
-            if (!password_verify($password, $auth['password'])) :
-                session()->setFlashdata('boo', 'Your password login is wrong, make sure you have authority to change the password.');
-                return redirect()->to('/user/resetpassword/' . $user_id)->withInput();
+            if ($password == $newpassword) :
+                session()->setFlashdata('boo', 'The given new password cannot be same as your current password!');
+                return redirect()->to('/user/' . $segment2 . '/' . $user_id)->withInput();
             else :
-                if ($password == $newpassword) :
-                    session()->setFlashdata('boo', 'The given new password cannot be same as your current password!');
-                    return redirect()->to('/user/resetpassword/' . $user_id)->withInput();
-                else :
-                    $password_hash = password_hash($newpassword, PASSWORD_DEFAULT);
+                $password_hash = password_hash($newpassword, PASSWORD_DEFAULT);
 
-                    $save = $this->UserModel->save([
-                        'user_id'       => $user_id,
-                        'password'      => $password_hash
-                    ]);
-                endif;
-            endif;
-
-            if ($save) :
-                $activity   = 'reset password';
-                $module_id  = $user_id;
-                SaveActivityLog($module_id, $activity, NULL);
-
-                session()->setFlashdata('yeah', 'The user password successfully updated.');
-                return redirect()->to('/user/resetpassword/' . $user_id);
-            else :
-                session()->setFlashdata('boo', 'We’re having trouble updating this data.');
-                return redirect()->to('/user/resetpassword/' . $user_id);
+                $save = $this->UserModel->save([
+                    'user_id'       => $user_id,
+                    'password'      => $password_hash
+                ]);
             endif;
         endif;
+
+        if ($save) :
+            $activity   = 'reset password';
+            $module_id  = $user_id;
+            SaveActivityLog($module_id, $activity, NULL);
+
+            session()->setFlashdata('yeah', 'The user password successfully updated.');
+            return redirect()->to('/user/' . $segment2 . '/' . $user_id);
+        else :
+            session()->setFlashdata('boo', 'We’re having trouble updating this data.');
+            return redirect()->to('/user/' . $segment2 . '/' . $user_id);
+        endif;
+    }
+
+    public function accountsetting($user_id)
+    {
+        $data = [
+            'title'         => 'Account Setting',
+            'AppConf'       => $this->AppConfig->index(),
+            'user'          => $this->UserModel->getUserById($user_id)->first(),
+            'validation'    => \config\Services::validation(),
+            'viewer'        => 'accountSetting'
+        ];
+
+        $data['css']            = [''];
+        $data['js']             = [''];
+        $data['NewJavaScript']  = [''];
+        return view('\Modules\Dashboard\Views\User', $data);
+    }
+
+    public function colorthemes($user_id)
+    {
+        helper('cookie');
+
+        $logo       = $this->request->getPost('logo');
+        $navbar     = $this->request->getPost('navbar');
+        $sidebar    = $this->request->getPost('sidebar');
+        $background = $this->request->getPost('background');
+
+        set_cookie(['name' => 'logo', 'value' => $logo, 'expire' => \time() + 3600]);
+        set_cookie(['name' => 'navbar', 'value' => $navbar, 'expire' => \time() + 3600]);
+        set_cookie(['name' => 'sidebar', 'value' => $sidebar, 'expire' => \time() + 3600]);
+        set_cookie(['name' => 'background', 'value' => $background, 'expire' => \time() + 3600]);
+
+        session()->setFlashdata('yeah', 'Data Changes, now you can rule the Matrix.');
+
+        $data = [
+            'title'         => 'Account Setting',
+            'AppConf'       => $this->AppConfig->index(),
+            'user'          => $this->UserModel->getUserById($user_id)->first(),
+            'validation'    => \config\Services::validation(),
+            'viewer'        => 'accountSetting'
+        ];
+
+        $data['css']            = [''];
+        $data['js']             = [''];
+        $data['NewJavaScript']  = [''];
+        return view('\Modules\Dashboard\Views\User', $data);
     }
 
     public function trash()

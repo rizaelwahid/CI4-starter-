@@ -1,8 +1,9 @@
 <?= $this->extend('\Modules\Dashboard\Views\Layout\\' . $AppConf['template'] . '_template') ?>
 
 <?= $this->section('content') ?>
+<?php $request = \Config\Services::request(); ?>
+<?php helper('cookie'); ?>
 <?php if ($viewer == '') : ?>
-
     <form action="" method="GET">
         <div class="row">
             <div class="col-sm-4 mb-2">
@@ -10,9 +11,8 @@
             </div>
             <div class="col-sm-8">
                 <div class="input-group mb-3">
-                    <?php $requri   = \Config\Services::request(); ?>
-                    <?php $segment1 = $requri->uri->getSegment(1); ?>
-                    <?php $keyword  = $AppConf['request']->getVar('keyword'); ?>
+                    <?php $segment1 = $request->uri->getSegment(1); ?>
+                    <?php $keyword  = $request->getVar('keyword'); ?>
                     <?php
                     if (!empty($keyword)) :
                     ?>
@@ -160,7 +160,7 @@
         </div>
     </form>
 <?php elseif ($viewer == 'edit') : ?>
-    <?php if ($user['role_id'] == '1') : ?>
+    <?php if ($user['role'] == 'Super Admin' && session()->role_id != 1) : ?>
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
             No data can be shown.
             <button type=" button" class="close" data-dismiss="alert" aria-label="Close">
@@ -418,8 +418,9 @@
     </div>
     <!-- </div> -->
 <?php elseif ($viewer == 'reset') : ?>
-    <form method="post" action="" enctype="multipart/form-data">
+    <form method="post" action="/user/resetPasswordProcess/<?= $user['user_id']; ?>" enctype="multipart/form-data">
         <?php csrf_field(); ?>
+        <input type="hidden" name="segment2" value="<?= $request->uri->getSegment(2) ?>">
         <div class="form-group row">
             <label for="password" class="col-sm-2 col-form-label">Login Password</label>
             <div class="col-sm-10">
@@ -451,6 +452,214 @@
             <div class="col-sm-10 offset-md-2">
                 <a href="/user" class="btn btn-warning">Cancle</a>
                 <button type="submit" class="btn btn-secondary">Update</button>
+            </div>
+        </div>
+    </form>
+<?php elseif ($viewer == 'accountSetting') : ?>
+    <h4>Reset Password</h4>
+    <form method="post" action="/user/resetPasswordProcess/<?= $user['user_id']; ?>" enctype="multipart/form-data">
+        <?php csrf_field(); ?>
+        <input type="hidden" name="segment2" value="<?= $request->uri->getSegment(2) ?>">
+        <div class="form-group row">
+            <label for="password" class="col-sm-2 col-form-label">Login Password</label>
+            <div class="col-sm-10">
+                <input value="<?= old('password'); ?>" type="password" name="password" class="form-control <?= ($validation->hasError('password')) ? 'is-invalid' : ''; ?>" id="password" placeholder="Please reinput your login password">
+                <div class="invalid-feedback">
+                    <?= ($validation->getError('password')); ?>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="newpassword" class="col-sm-2 col-form-label">New Password</label>
+            <div class="col-sm-10">
+                <input value="<?= old('newpassword'); ?>" type="password" name="newpassword" class="form-control <?= ($validation->hasError('newpassword')) ? 'is-invalid' : ''; ?>" id="newpassword" placeholder="Please input new password">
+                <div class="invalid-feedback">
+                    <?= ($validation->getError('newpassword')); ?>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="repeatpassword" class="col-sm-2 col-form-label">Repeat Password</label>
+            <div class="col-sm-10">
+                <input value="<?= old('repeatpassword'); ?>" type="password" name="repeatpassword" class="form-control <?= ($validation->hasError('repeatpassword')) ? 'is-invalid' : ''; ?>" id="repeatpassword" placeholder="Please repeat new password">
+                <div class="invalid-feedback">
+                    <?= ($validation->getError('repeatpassword')); ?>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-10 offset-md-2">
+                <button type="submit" class="btn btn-xs btn-secondary">Save</button>
+            </div>
+        </div>
+    </form>
+    <div class="separator-solid"></div>
+    <h4>Website Color Theme</h4>
+    <form method="post" action="/user/colorthemes/<?= $user['user_id']; ?>" enctype="multipart/form-data">
+        <?php csrf_field(); ?>
+        <div class="form-group row">
+            <label for="logo" class="col-sm-2 col-form-label">Logobar Color</label>
+            <div class="col-sm-10">
+                <div class="row gutters-xs">
+                    <div class="col-auto">
+                        <label class="colorinput">
+                            <input name="logo" type="radio" value="dark" class="colorinput-input" <?= (get_cookie('logo') == 'dark') ? 'checked' : ''; ?>>
+                            <span class="colorinput-color bg-black"></span>
+                        </label>
+                    </div>
+                    <div class="col-auto">
+                        <label class="colorinput">
+                            <input name="logo" type="radio" value="blue" class="colorinput-input" <?= (get_cookie('logo') == 'blue') ? 'checked' : ''; ?>>
+                            <span class="colorinput-color bg-primary"></span>
+                        </label>
+                    </div>
+                    <div class="col-auto">
+                        <label class="colorinput">
+                            <input name="logo" type="radio" value="purple" class="colorinput-input" <?= (get_cookie('logo') == 'purple') ? 'checked' : ''; ?>>
+                            <span class="colorinput-color bg-secondary"></span>
+                        </label>
+                    </div>
+                    <div class="col-auto">
+                        <label class="colorinput">
+                            <input name="logo" type="radio" value="light-blue" class="colorinput-input" <?= (get_cookie('logo') == 'light-blue') ? 'checked' : ''; ?>>
+                            <span class="colorinput-color bg-info"></span>
+                        </label>
+                    </div>
+                    <div class="col-auto">
+                        <label class="colorinput">
+                            <input name="logo" type="radio" value="green" class="colorinput-input" <?= (get_cookie('logo') == 'green') ? 'checked' : ''; ?>>
+                            <span class="colorinput-color bg-success"></span>
+                        </label>
+                    </div>
+                    <div class="col-auto">
+                        <label class="colorinput">
+                            <input name="logo" type="radio" value="red" class="colorinput-input" <?= (get_cookie('logo') == 'red') ? 'checked' : ''; ?>>
+                            <span class="colorinput-color bg-danger"></span>
+                        </label>
+                    </div>
+                    <div class="col-auto">
+                        <label class="colorinput">
+                            <input name="logo" type="radio" value="orange" class="colorinput-input" <?= (get_cookie('logo') == 'orange') ? 'checked' : ''; ?>>
+                            <span class="colorinput-color bg-warning"></span>
+                        </label>
+                    </div>
+                    <div class="col-auto">
+                        <label class="colorinput">
+                            <input name="logo" type="radio" value="white" class="colorinput-input" <?= (get_cookie('logo') == 'white') ? 'checked' : ''; ?>>
+                            <span class="colorinput-color bg-grey1"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="invalid-feedback">
+                    <?= ($validation->getError('color')); ?>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="navbar" class="col-sm-2 col-form-label">Navbar Color</label>
+            <div class="col-sm-10">
+                <div class="row gutters-xs">
+                    <div class="col-auto">
+                        <label class="colorinput">
+                            <input name="navbar" type="radio" value="dark" class="colorinput-input" <?= (get_cookie('navbar') == 'dark') ? 'checked' : ''; ?>>
+                            <span class="colorinput-color bg-black"></span>
+                        </label>
+                    </div>
+                    <div class="col-auto">
+                        <label class="colorinput">
+                            <input name="navbar" type="radio" value="blue" class="colorinput-input" <?= (get_cookie('navbar') == 'blue') ? 'checked' : ''; ?>>
+                            <span class="colorinput-color bg-primary"></span>
+                        </label>
+                    </div>
+                    <div class="col-auto">
+                        <label class="colorinput">
+                            <input name="navbar" type="radio" value="purple" class="colorinput-input" <?= (get_cookie('navbar') == 'purple') ? 'checked' : ''; ?>>
+                            <span class="colorinput-color bg-secondary"></span>
+                        </label>
+                    </div>
+                    <div class="col-auto">
+                        <label class="colorinput">
+                            <input name="navbar" type="radio" value="light-blue" class="colorinput-input" <?= (get_cookie('navbar') == 'light-blue') ? 'checked' : ''; ?>>
+                            <span class="colorinput-color bg-info"></span>
+                        </label>
+                    </div>
+                    <div class="col-auto">
+                        <label class="colorinput">
+                            <input name="navbar" type="radio" value="green" class="colorinput-input" <?= (get_cookie('navbar') == 'green') ? 'checked' : ''; ?>>
+                            <span class="colorinput-color bg-success"></span>
+                        </label>
+                    </div>
+                    <div class="col-auto">
+                        <label class="colorinput">
+                            <input name="navbar" type="radio" value="red" class="colorinput-input" <?= (get_cookie('navbar') == 'red') ? 'checked' : ''; ?>>
+                            <span class="colorinput-color bg-danger"></span>
+                        </label>
+                    </div>
+                    <div class="col-auto">
+                        <label class="colorinput">
+                            <input name="navbar" type="radio" value="orange" class="colorinput-input" <?= (get_cookie('navbar') == 'orange') ? 'checked' : ''; ?>>
+                            <span class="colorinput-color bg-warning"></span>
+                        </label>
+                    </div>
+                    <div class="col-auto">
+                        <label class="colorinput">
+                            <input name="navbar" type="radio" value="white" class="colorinput-input" <?= (get_cookie('navbar') == 'white') ? 'checked' : ''; ?>>
+                            <span class="colorinput-color bg-grey1"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="invalid-feedback">
+                    <?= ($validation->getError('color')); ?>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="sidebar" class="col-sm-2 col-form-label">Sidebar Color</label>
+            <div class="col-sm-10">
+                <div class="row gutters-xs">
+                    <div class="col-auto">
+                        <label class="colorinput">
+                            <input name="sidebar" type="radio" value="dark" class="colorinput-input" <?= (get_cookie('sidebar') == 'dark') ? 'checked' : ''; ?>>
+                            <span class="colorinput-color bg-black"></span>
+                        </label>
+                    </div>
+                    <div class="col-auto">
+                        <label class="colorinput">
+                            <input name="sidebar" type="radio" value="white" class="colorinput-input" <?= (get_cookie('sidebar') == 'white') ? 'checked' : ''; ?>>
+                            <span class="colorinput-color bg-grey1"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="invalid-feedback">
+                    <?= ($validation->getError('color')); ?>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="background" class="col-sm-2 col-form-label">Background Color</label>
+            <div class="col-sm-10">
+                <div class="row gutters-xs">
+                    <div class="col-auto">
+                        <label class="colorinput">
+                            <input name="background" type="radio" value="dark" class="colorinput-input" <?= (get_cookie('background') == 'dark') ? 'checked' : ''; ?>>
+                            <span class="colorinput-color bg-black"></span>
+                        </label>
+                    </div>
+                    <div class="col-auto">
+                        <label class="colorinput">
+                            <input name="background" type="radio" value="white" class="colorinput-input" <?= (get_cookie('background') == 'white') ? 'checked' : ''; ?>>
+                            <span class="colorinput-color bg-grey1"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="invalid-feedback">
+                    <?= ($validation->getError('color')); ?>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-10 offset-md-2">
+                <button type="submit" class="btn btn-xs btn-secondary">Save</button>
             </div>
         </div>
     </form>

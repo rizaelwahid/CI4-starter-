@@ -3,6 +3,8 @@
 <?= $this->section('content') ?>
 <?php
 
+$request = \Config\Services::request();
+
 use Kint\Zval\Value;
 
 if ($viewer == '') : ?>
@@ -15,7 +17,7 @@ if ($viewer == '') : ?>
                 <div class="input-group mb-3">
                     <?php $requri   = \Config\Services::request(); ?>
                     <?php $segment1 = $requri->uri->getSegment(1); ?>
-                    <?php $keyword  = $AppConf['request']->getVar('keyword'); ?>
+                    <?php $keyword  = $request->getVar('keyword'); ?>
                     <?php
                     if (!empty($keyword)) :
                     ?>

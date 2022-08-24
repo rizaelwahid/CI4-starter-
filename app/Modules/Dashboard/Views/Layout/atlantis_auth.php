@@ -3,7 +3,7 @@
 
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title><?= $title; ?> | <?= $AppConf['SiteName']; ?></title>
+    <title><?= $title; ?> | <?= $AppConf['siteName']; ?></title>
     <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
     <link rel="icon" href="/assets/layouts/img/icon.ico" type="image/x-icon" />
 
@@ -208,7 +208,7 @@
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel"><b><?= $AppConf['SiteName']; ?> terms and conditions.</b></h5>
+                            <h5 class="modal-title" id="exampleModalLabel"><b><?= $AppConf['siteName']; ?> terms and conditions.</b></h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>

@@ -71,6 +71,11 @@ $routes->group("apiPegawai", ["namespace" => "\Modules\API\Controllers"], functi
 $routes->add('/forbidden', 'AppConfig::forbidden');
 $routes->add('/maintenance', 'AppConfig::maintenance');
 
+$routes->add('/webbasicinfo', 'AppConfig::webbasicinfo', ["filter" => "authrbac"]);
+$routes->add('/authconfiguration', 'AppConfig::authconfiguration', ["filter" => "authrbac"]);
+$routes->add('/smtpconfiguration', 'AppConfig::smtpconfiguration', ["filter" => "authrbac"]);
+$routes->add('/maintenanceconfiguration', 'AppConfig::maintenanceconfiguration', ["filter" => "authrbac"]);
+
 $routes->group("auth", ["namespace" => "\Modules\Dashboard\Controllers"], function ($routes) {
 	$routes->add("login", "Auth::index");
 	$routes->add("regsave", "Auth::regsave");
@@ -111,6 +116,7 @@ $routes->group("user", ["namespace" => "\Modules\Dashboard\Controllers", "filter
 	$routes->add("view/(:num)", "User::view/$1");
 	$routes->add("edit/(:num)", "User::edit/$1");
 	$routes->add("resetpassword/(:num)", "User::resetpassword/$1");
+	$routes->add("accountSetting/(:num)", "User::accountSetting/$1");
 	$routes->add("trash", "User::trash");
 	$routes->delete("(:num)", "User::delete/$1");
 	$routes->add("restore/(:num)", "User::restore/$1");

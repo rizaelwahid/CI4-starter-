@@ -3,7 +3,7 @@
 
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title><?= $title; ?> | <?= $AppConf['SiteName']; ?></title>
+    <title><?= $title; ?> | <?= $AppConf['siteName']; ?></title>
     <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
     <link rel="icon" href="/assets/layouts/img/icon.ico" type="image/x-icon" />
 
@@ -40,7 +40,7 @@
             <div id="minutes" class="align-items-center flex-column d-flex justify-content-center"></div>
             <div id="seconds" class="align-items-center flex-column d-flex justify-content-center"></div>
         </div>
-        <div class="desc animated fadeIn"><br />The site is under maintenance, please come back again later.</div>
+        <div class="desc animated fadeIn"><br /><?= htmlspecialchars_decode($AppConf['maintenanceCaption']) ?></div>
         <a onclick="history.back()" class="btn btn-primary btn-back-home mt-4 animated fadeInUp">
             <span class="btn-label mr-2">
                 <i class="flaticon-left-arrow-4"></i>

@@ -207,14 +207,14 @@ class Auth extends BaseController
                 ]
             ];
 
-            if (!$this->validate($rules)) {
+            if (!$this->validate($rules)) :
                 return redirect()->to('/auth/forgotpassword')->withInput();
-            } else {
+            else :
                 $email      = htmlspecialchars($this->request->getVar('email'));
                 $db         = \Config\Database::connect();
 
                 $user = $this->UserModel->where(['email' => $email, 'is_active' => 1])->first();
-                if ($user) {
+                if ($user) :
 
                     $token = base64_encode(random_bytes(32));
                     $db->table('token_email')->insert([
@@ -226,25 +226,27 @@ class Auth extends BaseController
 
                     session()->setFlashdata('yeah', 'Please check your email to reset your password.');
                     return redirect()->to('/auth');
-                } else {
+                else :
                     session()->setFlashdata('boo', 'This Email is not registered or activated!');
                     return redirect()->to('/auth/forgotpassword')->withInput();
-                }
-            }
+                endif;
+            endif;
         endif;
     }
 
     private function _sendEmail($token, $type)
     {
+        $appConfig = $this->AppConfig->index();
+
         $config = [
-            'protocol'      => 'smtp',
-            'SMTPHost'      => 'smtp.gmail.com',
-            'SMTPUser'      => 'merahmuda327@gmail.com',
-            'SMTPPass'      => 'glepnbyswfgyldcf',
-            'SMTPPort'      => 465,
-            'SMTPUser'      => 'tls',
-            'mailType'      => 'html',
-            'charset'       => 'utf-8',
+            'protocol'      => $appConfig['protocol'],
+            'SMTPHost'      => $appConfig['SMTPHost'],
+            'SMTPUser'      => $appConfig['SMTPUser'],
+            'SMTPPass'      => $appConfig['SMTPPass'],
+            'SMTPPort'      => intval($appConfig['SMTPPort']),
+            'SMTPCrypto'    => $appConfig['SMTPCrypto'],
+            'mailType'      => $appConfig['mailType'],
+            'charset'       => $appConfig['charset'],
             'newline'       => "\r\n",
             'crlf'          => "\r\n"
         ];
@@ -252,7 +254,7 @@ class Auth extends BaseController
         $email = \Config\Services::email();
         $email->initialize($config);
 
-        $email->setFrom('smartdash@gmail.com', 'Smartdash');
+        $email->setFrom($appConfig['mailAlias'], $appConfig['mailName']);
         $email->setTo(htmlspecialchars($this->request->getVar('email')));
 
         if ($type == 'verify') :
@@ -280,30 +282,30 @@ class Auth extends BaseController
 
         $user = $this->UserModel->where(['email' => $email])->first();
 
-        if ($user) {
+        if ($user) :
             $emailToken = $db->table('token_email')->where(['token' => $token])->get()->getResultArray();
-            if ($emailToken) {
-                if (time() - strtotime($emailToken['created_at']) < 60 * 60 * 1) {
+            if ($emailToken) :
+                if (time() - strtotime($emailToken['created_at']) < 60 * 60 * 1) :
                     $this->UserModel->set('is_active', 1)->where('email', $email)->update();
                     $db->table('token_email')->where('email', $email)->delete();
 
                     session()->setFlashdata('yeah', 'Account activation success. Email ' . $email . ' has been activated, please login!');
                     return redirect()->to('/auth/login');
-                } else {
+                else :
                     $this->UserModel->where('email', $email)->delete();
                     $db->table('token_email')->where('email', $email)->delete();
 
                     session()->setFlashdata('boo', 'Account activation failed! Token Expired.');
                     return redirect()->to('/auth/login');
-                }
-            } else {
+                endif;
+            else :
                 session()->setFlashdata('boo', 'Account activation failed! Token invalid.');
                 return redirect()->to('/auth/login');
-            }
-        } else {
+            endif;
+        else :
             session()->setFlashdata('boo', 'Account activation failed! Wrong Email.');
             return redirect()->to('/auth/login');
-        }
+        endif;
     }
 
     public function reset()
@@ -314,34 +316,34 @@ class Auth extends BaseController
 
         $user = $this->UserModel->where(['email' => $email])->first();
 
-        if ($user) {
+        if ($user) :
             $emailToken = $db->table('token_email')->where(['token' => $token])->get()->getResultArray();
-            if ($emailToken) {
-                if (time() - strtotime($emailToken['created_at']) < 60 * 60 * 1) {
+            if ($emailToken) :
+                if (time() - strtotime($emailToken['created_at']) < 60 * 60 * 1) :
                     session()->set(['reset_email' => $email]);
                     return redirect()->to('/auth/changepassword');
-                } else {
+                else :
                     $db->table('token_email')->where('email', $email)->delete();
 
                     session()->setFlashdata('boo', 'Reset password failed! Token Expired.');
                     return redirect()->to('/auth/forgotpassword');
-                }
-            } else {
+                endif;
+            else :
                 session()->setFlashdata('boo', 'Reset password failed! Token invalid.');
                 return redirect()->to('/auth/forgotpassword');
-            }
-        } else {
+            endif;
+        else :
             session()->setFlashdata('boo', 'Reset password failed! Wrong Email.');
             return redirect()->to('/auth/forgotpassword');
-        }
+        endif;
     }
 
     public function changePassword()
     {
-        if (!session()->reset_email) {
+        if (!session()->reset_email) :
             session()->setFlashdata('boo', 'Ouch! its seems you want to change your password. Lets reset it from your email first');
             return redirect()->to('/auth/forgotpassword');
-        }
+        endif;
 
         if (count($this->request->getPost()) <= 0) :
 
@@ -363,9 +365,9 @@ class Auth extends BaseController
                 'repeat'  => 'required|matches[password]'
             ];
 
-            if (!$this->validate($rules)) {
+            if (!$this->validate($rules)) :
                 return redirect()->to('/auth/changepassword')->withInput();
-            }
+            endif;
 
             $password   = htmlspecialchars(password_hash($this->request->getVar('password'), PASSWORD_DEFAULT));
             $email      = session()->reset_email;
@@ -374,14 +376,14 @@ class Auth extends BaseController
 
             session()->remove('reset_email');
 
-            if ($reset) {
+            if ($reset) :
                 $db->table('token_email')->where('email', $email)->delete();
                 session()->setFlashdata('yeah', 'Congratulation! Your password has been reseted, Please login!');
                 return redirect()->to('/auth/login');
-            } else {
+            else :
                 session()->setFlashdata('boo', 'Ouch! something wrong. Try contact to your administrator');
                 return redirect()->to('/auth/login');
-            }
+            endif;
         endif;
     }
 }

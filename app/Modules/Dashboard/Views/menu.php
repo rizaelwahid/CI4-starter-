@@ -78,8 +78,10 @@
                                         <a style="opacity: 0;">
                                             &#9866;&#9866;&nbsp;
                                         </a>
-                                        <a style="opacity: 0;">
+                                        <a>
                                             &nbsp;&#10073;&nbsp;
+                                        </a>
+                                        <a style="opacity: 0;">
                                             &#9866;&#9866;&nbsp;
                                         </a>
                                         &nbsp;&#10073;&nbsp;
@@ -391,12 +393,16 @@
                                         <a style="opacity: 0;">
                                             &#9866;&#9866;&nbsp;
                                         </a>
+                                        <a>
+                                            &nbsp;&#10073;&nbsp;
+                                        </a>
                                         <a style="opacity: 0;">
+                                            &#9866;&#9866;&nbsp;
+                                        </a>
+                                        <a>
                                             &nbsp;&#10073;&nbsp;
                                             &#9866;&#9866;&nbsp;
                                         </a>
-                                        &nbsp;&#10073;&nbsp;
-                                        &#9866;&#9866;&nbsp;
                                         <?= $l++; ?>
                                     </td>
                                     <td><?= $menusubsub['title']; ?></td>

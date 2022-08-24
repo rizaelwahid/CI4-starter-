@@ -3,7 +3,7 @@
 
 <head>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<title><?= $title; ?> | <?= $AppConf['SiteName']; ?></title>
+	<title><?= $title; ?> | <?= $AppConf['siteName']; ?></title>
 	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
 	<link rel="icon" href="/assets/layouts/img/icon.ico" type="image/x-icon" />
 
@@ -293,11 +293,10 @@
 									</li>
 									<li>
 										<div class="dropdown-divider"></div>
-										<a class="dropdown-item" href="#">My Profile</a>
-										<a class="dropdown-item" href="#">My Balance</a>
-										<a class="dropdown-item" href="#">Inbox</a>
+										<a class="dropdown-item" href="/user/view/<?= session()->role_id ?>">My Profile</a>
+										<a class="dropdown-item" href="/user/edit/<?= session()->role_id ?>">Edit Profile</a>
 										<div class="dropdown-divider"></div>
-										<a class="dropdown-item" href="#">Account Setting</a>
+										<a class="dropdown-item" href="/user/accountSetting/<?= session()->role_id ?>">Account Setting</a>
 										<div class="dropdown-divider"></div>
 										<a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
 									</li>
@@ -331,18 +330,18 @@
 							<div class="collapse in" id="collapseExample">
 								<ul class="nav">
 									<li>
-										<a href="#profile">
+										<a href="/user/view/<?= session()->role_id ?>">
 											<span class="link-collapse">My Profile</span>
 										</a>
 									</li>
 									<li>
-										<a href="#edit">
+										<a href="/user/edit/<?= session()->role_id ?>">
 											<span class="link-collapse">Edit Profile</span>
 										</a>
 									</li>
 									<li>
-										<a href="#settings">
-											<span class="link-collapse">Settings</span>
+										<a href="/user/accountSetting/<?= session()->role_id ?>">
+											<span class="link-collapse">Account Setting</span>
 										</a>
 									</li>
 								</ul>
@@ -479,7 +478,7 @@
 						<ul class="nav">
 							<li class="nav-item">
 								<a class="nav-link" href="/">
-									<?= $AppConf['SiteName']; ?>
+									<?= $AppConf['siteName']; ?>
 								</a>
 							</li>
 							<li class="nav-item">
@@ -495,7 +494,7 @@
 						</ul>
 					</nav>
 					<div class="copyright ml-auto">
-						<a href="/"><?= $AppConf['SiteName']; ?> </a> <?= $AppConf['footerCaption']; ?>
+						<a href="/"><?= $AppConf['siteName']; ?> </a> <?= $AppConf['footerCaption']; ?>
 					</div>
 				</div>
 			</footer>

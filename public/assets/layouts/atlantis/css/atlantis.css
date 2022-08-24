@@ -12530,14 +12530,14 @@ div.table-responsive > div.dataTables_wrapper > div.row {
         border-left: 6px solid transparent;
         border-right: 6px solid transparent;
         border-bottom: 6px solid #be2626; }
-
+        
 /*      Summernote     */
 @font-face {
   font-family: "summernote";
   font-style: normal;
   font-weight: normal;
-  src: url("../fonts/summernote/summernote.eot?e557617934c52ea068954af79ed7c221");
-  src: url("../fonts/summernote/summernote.eot?#iefix") format("embedded-opentype"), url("../fonts/summernote/summernote.woff?e557617934c52ea068954af79ed7c221") format("woff"), url("../fonts/summernote/summernote.ttf?e557617934c52ea068954af79ed7c221") format("truetype"); }
+  src: url("/assets/layouts/fonts/summernote/summernote.eot?e557617934c52ea068954af79ed7c221");
+  src: url("/assets/layouts/fonts/summernote/summernote.eot?#iefix") format("embedded-opentype"), url("/assets/layouts/fonts/summernote/summernote.woff?e557617934c52ea068954af79ed7c221") format("woff"), url("/assets/layouts/fonts/summernote/summernote.ttf?e557617934c52ea068954af79ed7c221") format("truetype"); }
 [class^="note-icon-"]:before, [class*=" note-icon-"]:before {
   display: inline-block;
   font: normal normal normal 14px summernote;

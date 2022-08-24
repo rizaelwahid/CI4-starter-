@@ -4,7 +4,7 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta charset="utf-8" />
-    <title><?= $title; ?> | <?= $AppConf['SiteName']; ?></title>
+    <title><?= $title; ?> | <?= $AppConf['siteName']; ?></title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
@@ -1343,7 +1343,7 @@
             <div class="footer-inner">
                 <div class="footer-content">
                     <span class="bigger-120">
-                        <span class="blue bolder"><?= $AppConf['SiteName']; ?> </span>
+                        <span class="blue bolder"><?= $AppConf['siteName']; ?> </span>
                         <?= $AppConf['footerCaption']; ?></span>
 
                     &nbsp; &nbsp;
