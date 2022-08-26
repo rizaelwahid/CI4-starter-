@@ -354,8 +354,6 @@ class User extends BaseController
 
     public function colorthemes($user_id)
     {
-        helper('cookie');
-
         $logo       = $this->request->getPost('logo');
         $navbar     = $this->request->getPost('navbar');
         $sidebar    = $this->request->getPost('sidebar');

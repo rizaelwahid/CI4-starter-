@@ -2,7 +2,6 @@
 
 <?= $this->section('content') ?>
 <?php $request = \Config\Services::request(); ?>
-<?php helper('cookie'); ?>
 <?php if ($viewer == '') : ?>
     <form action="" method="GET">
         <div class="row">

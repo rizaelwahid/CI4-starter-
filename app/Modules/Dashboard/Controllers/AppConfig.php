@@ -17,6 +17,8 @@ class AppConfig extends BaseController
 
     public function index()
     {
+        getVisitorData();
+
         $db    = \Config\Database::connect();
         $query = $db->table('app_config')->get()->getResultArray();
 

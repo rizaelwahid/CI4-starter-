@@ -1,11 +1,12 @@
 <?php
-helper('cookie');
 $jsData['sweetalertMin']    = 'plugin/sweetalert/sweetalert.min.js';
 $jsData['select2']          = 'plugin/select2/select2.min.js';
 $jsData['tagsinput']        = 'plugin/bootstrap-tagsinput/bootstrap-tagsinput.min.js';
 $jsData['summernote']       = 'plugin/summernote/summernote-bs4.min.js';
 $jsData['moment']           = 'plugin/moment/moment.min.js';
 $jsData['datepicker']       = 'plugin/datepicker/bootstrap-datetimepicker.min.js';
+$jsData['chartCircle']      = 'plugin/chart-circle/circles.min.js';
+$jsData['chart']            = 'plugin/chart.js/chart.min.js';
 ?>
 
 <?php foreach ($jsData as $key => $value) : ?>
@@ -65,10 +66,8 @@ $background = (get_cookie('background') != NULL) ? get_cookie('background') : 'w
 
     <?php
     foreach ($NewJavaScript as $value) :
-    ?>
-        <?php
         if ($value == 'select2Menu') :
-        ?>
+    ?>
             $('#autocomplete').select2({
                 theme: "bootstrap",
                 placeholder: "Please select a parent menu",
@@ -88,8 +87,6 @@ $background = (get_cookie('background') != NULL) ? get_cookie('background') : 'w
             });
         <?php
         endif;
-        ?>
-        <?php
         if ($value == 'select2') :
         ?>
             $('#select2').select2({
@@ -99,8 +96,6 @@ $background = (get_cookie('background') != NULL) ? get_cookie('background') : 'w
             });
         <?php
         endif;
-        ?>
-        <?php
         if ($value == 'avatarPreview') :
         ?>
 
@@ -120,8 +115,6 @@ $background = (get_cookie('background') != NULL) ? get_cookie('background') : 'w
             }
         <?php
         endif;
-        ?>
-        <?php
         if ($value == 'changeMenuPermission') :
         ?>
             $('.switch').on('click', function() {
@@ -142,8 +135,6 @@ $background = (get_cookie('background') != NULL) ? get_cookie('background') : 'w
             });
         <?php
         endif;
-        ?>
-        <?php
         if ($value == 'changePermission') :
         ?>
             $('.switch').on('click', function() {
@@ -164,8 +155,6 @@ $background = (get_cookie('background') != NULL) ? get_cookie('background') : 'w
             });
         <?php
         endif;
-        ?>
-        <?php
         if ($value == 'summernote') :
         ?>
             $('#summernote').summernote({
@@ -176,8 +165,6 @@ $background = (get_cookie('background') != NULL) ? get_cookie('background') : 'w
             });
         <?php
         endif;
-        ?>
-        <?php
         if ($value == 'datepicker') :
         ?>
             $('#datetime').datetimepicker({
@@ -191,15 +178,230 @@ $background = (get_cookie('background') != NULL) ? get_cookie('background') : 'w
             });
         <?php
         endif;
+        if ($value == 'chartCircle') :
         ?>
+            Circles.create({
+                id: 'circles-1',
+                radius: 45,
+                value: <?= $onlineVisitor; ?>,
+                maxValue: 100,
+                width: 7,
+                text: <?= $onlineVisitor; ?>,
+                colors: ['#f1f1f1', '#1572e8'],
+                duration: 400,
+                wrpClass: 'circles-wrp',
+                textClass: 'circles-text',
+                styleWrapper: true,
+                styleText: true
+            })
+            Circles.create({
+                id: 'circles-2',
+                radius: 45,
+                value: <?= $onlineRegVisitor; ?>,
+                maxValue: 100,
+                width: 7,
+                text: <?= $onlineRegVisitor; ?>,
+                colors: ['#f1f1f1', '#1572e8'],
+                duration: 400,
+                wrpClass: 'circles-wrp',
+                textClass: 'circles-text',
+                styleWrapper: true,
+                styleText: true
+            })
+            Circles.create({
+                id: 'circles-3',
+                radius: 45,
+                value: <?= $onlineGuestVisitor; ?>,
+                maxValue: 100,
+                width: 7,
+                text: <?= $onlineGuestVisitor; ?>,
+                colors: ['#f1f1f1', '#1572e8'],
+                duration: 400,
+                wrpClass: 'circles-wrp',
+                textClass: 'circles-text',
+                styleWrapper: true,
+                styleText: true
+            })
+            Circles.create({
+                id: 'circles-4',
+                radius: 45,
+                value: <?= $todayVisitor; ?>,
+                maxValue: 100,
+                width: 7,
+                text: <?= $todayVisitor; ?>,
+                colors: ['#f1f1f1', '#1572e8'],
+                duration: 400,
+                wrpClass: 'circles-wrp',
+                textClass: 'circles-text',
+                styleWrapper: true,
+                styleText: true
+            })
+            Circles.create({
+                id: 'circles-5',
+                radius: 45,
+                value: <?= $yesterdayVisitor; ?>,
+                maxValue: 100,
+                width: 7,
+                text: <?= $yesterdayVisitor; ?>,
+                colors: ['#f1f1f1', '#1572e8'],
+                duration: 400,
+                wrpClass: 'circles-wrp',
+                textClass: 'circles-text',
+                styleWrapper: true,
+                styleText: true
+            })
+            Circles.create({
+                id: 'circles-6',
+                radius: 45,
+                value: <?= $totalVisitor; ?>,
+                maxValue: 1000,
+                width: 7,
+                text: <?= $totalVisitor; ?>,
+                colors: ['#f1f1f1', '#1572e8'],
+                duration: 400,
+                wrpClass: 'circles-wrp',
+                textClass: 'circles-text',
+                styleWrapper: true,
+                styleText: true
+            })
         <?php
+        endif;
+        if ($value == 'chart') :
+        ?>
+            htmlLegendsChart = document.getElementById('htmlLegendsChart').getContext('2d');
+
+            var gradientStroke = htmlLegendsChart.createLinearGradient(500, 0, 100, 0);
+            gradientStroke.addColorStop(0, '#177dff');
+            gradientStroke.addColorStop(1, '#80b6f4');
+
+            var gradientFill = htmlLegendsChart.createLinearGradient(500, 0, 100, 0);
+            gradientFill.addColorStop(0, "rgba(23, 125, 255, 0.7)");
+            gradientFill.addColorStop(1, "rgba(128, 182, 244, 0.3)");
+
+            var gradientStroke2 = htmlLegendsChart.createLinearGradient(500, 0, 100, 0);
+            gradientStroke2.addColorStop(0, '#f3545d');
+            gradientStroke2.addColorStop(1, '#ff8990');
+
+            var gradientFill2 = htmlLegendsChart.createLinearGradient(500, 0, 100, 0);
+            gradientFill2.addColorStop(0, "rgba(243, 84, 93, 0.7)");
+            gradientFill2.addColorStop(1, "rgba(255, 137, 144, 0.3)");
+
+            var myHtmlLegendsChart = new Chart(htmlLegendsChart, {
+                type: 'line',
+                data: {
+                    labels: [
+                        <?php foreach ($weeklyUserVisitor as $data) : ?> "<?= date('l', strtotime($data['date'])) ?>",
+                        <?php endforeach; ?>
+                    ],
+                    datasets: [{
+                        label: "Guest",
+                        borderColor: gradientStroke2,
+                        pointBackgroundColor: gradientStroke2,
+                        pointRadius: 0,
+                        backgroundColor: gradientFill2,
+                        legendColor: '#f3545d',
+                        fill: true,
+                        borderWidth: 1,
+                        data: [
+                            <?php foreach ($weeklyGuestVisitor as $data) : ?> "<?= $data['totalVisitor'] ?>",
+                            <?php endforeach; ?>
+                        ]
+                    }, {
+                        label: "User",
+                        borderColor: gradientStroke,
+                        pointBackgroundColor: gradientStroke,
+                        pointRadius: 0,
+                        backgroundColor: gradientFill,
+                        legendColor: '#177dff',
+                        fill: true,
+                        borderWidth: 1,
+                        data: [
+                            <?php foreach ($weeklyUserVisitor as $data) : ?> "<?= $data['totalVisitor'] ?>",
+                            <?php endforeach; ?>
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    legend: {
+                        display: false
+                    },
+                    tooltips: {
+                        bodySpacing: 4,
+                        mode: "nearest",
+                        intersect: 0,
+                        position: "nearest",
+                        xPadding: 10,
+                        yPadding: 10,
+                        caretPadding: 10
+                    },
+                    layout: {
+                        padding: {
+                            left: 15,
+                            right: 15,
+                            top: 15,
+                            bottom: 15
+                        }
+                    },
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                fontColor: "rgba(0,0,0,0.5)",
+                                fontStyle: "500",
+                                beginAtZero: false,
+                                maxTicksLimit: 5,
+                                padding: 20
+                            },
+                            gridLines: {
+                                drawTicks: false,
+                                display: false
+                            }
+                        }],
+                        xAxes: [{
+                            gridLines: {
+                                zeroLineColor: "transparent"
+                            },
+                            ticks: {
+                                padding: 20,
+                                fontColor: "rgba(0,0,0,0.5)",
+                                fontStyle: "500"
+                            }
+                        }]
+                    },
+                    legendCallback: function(chart) {
+                        var text = [];
+                        text.push('<ul class="' + chart.id + '-legend html-legend">');
+                        for (var i = 0; i < chart.data.datasets.length; i++) {
+                            text.push('<li><span style="background-color:' + chart.data.datasets[i].legendColor + '"></span>');
+                            if (chart.data.datasets[i].label) {
+                                text.push(chart.data.datasets[i].label);
+                            }
+                            text.push('</li>');
+                        }
+                        text.push('</ul>');
+                        return text.join('');
+                    }
+                }
+            });
+
+            var myLegendContainer = document.getElementById("myChartLegend");
+
+            // generate HTML legend
+            myLegendContainer.innerHTML = myHtmlLegendsChart.generateLegend();
+
+            // bind onClick event to all LI-tags of the legend
+            var legendItems = myLegendContainer.getElementsByTagName('li');
+            for (var i = 0; i < legendItems.length; i += 1) {
+                legendItems[i].addEventListener("click", legendClickCallback, false);
+            }
+        <?php
+        endif;
         if ($value == 'bar') :
         ?>
             console.log('yourScriptHereToo');
-        <?php
-        endif;
-        ?>
     <?php
+        endif;
     endforeach;
     ?>
 </script>
