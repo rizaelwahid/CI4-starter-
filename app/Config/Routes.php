@@ -78,9 +78,11 @@ $routes->add('/maintenanceconfiguration', 'AppConfig::maintenanceconfiguration',
 
 $routes->group("auth", ["namespace" => "\Modules\Dashboard\Controllers"], function ($routes) {
 	$routes->add("login", "Auth::index");
+	$routes->add("loging", "Auth::loging");
 	$routes->add("regsave", "Auth::regsave");
 	$routes->add("forgotpassword", "Auth::forgotPassword");
 	$routes->add("changepassword", "Auth::changePassword");
+	$routes->add("logout", "Auth::logout");
 });
 
 $routes->group("dashboard", ["namespace" => "\Modules\Dashboard\Controllers", "filter" => "authrbac"], function ($routes) {
