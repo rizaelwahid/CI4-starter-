@@ -17,7 +17,11 @@ class AppConfig extends BaseController
 
     public function index()
     {
-        getVisitorData();
+        $requri     = \Config\Services::request();
+        $segment2        = $requri->uri->getSegment(2);
+        if ($segment2 != 'login') :
+            getVisitorData();
+        endif;
 
         $db    = \Config\Database::connect();
         $query = $db->table('app_config')->get()->getResultArray();
