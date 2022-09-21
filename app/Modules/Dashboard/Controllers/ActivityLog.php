@@ -22,11 +22,11 @@ class ActivityLog extends BaseController
         $currentPage = $this->request->getVar('page_activity_log') ? $this->request->getVar('page_activity_log') : 1;
 
         $keyword = $this->request->getVar('keyword');
-        if ($keyword) {
+        if ($keyword) :
             $searchdata = $this->ActivityLogModel->search($keyword);
-        } else {
+        else :
             $searchdata = $this->ActivityLogModel->getActivityLog();
-        }
+        endif;
 
         $data = [
             'title'         => 'Activity Log',
@@ -46,24 +46,24 @@ class ActivityLog extends BaseController
 
     public function delete()
     {
-        if ($this->request->getVar('activity_id')) {
-            foreach ($this->request->getVar('activity_id') as $activity_id) {
+        if ($this->request->getVar('activity_id')) :
+            foreach ($this->request->getVar('activity_id') as $activity_id) :
                 $delete = $this->ActivityLogModel->delete($activity_id);
-            }
-            if ($delete) {
+            endforeach;
+            if ($delete) :
                 $activity   = 'deleted';
                 $module_id  = 0;
                 SaveActivityLog($module_id, $activity, NULL);
 
                 session()->setFlashdata('yeah', 'Data success full deleted.');
                 return redirect()->to('/activitylog');
-            } else {
+            else :
                 session()->setFlashdata('boo', 'We’re having trouble deleting this data.');
                 return redirect()->to('/activitylog');
-            }
-        } else {
+            endif;
+        else :
             session()->setFlashdata('boo', 'No data selected!');
             return redirect()->to('/activitylog');
-        }
+        endif;
     }
 }

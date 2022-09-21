@@ -32,9 +32,9 @@ class Dashboard extends BaseController
         $aWeekPeriod = new \DatePeriod($start, $interval, $end);
 
         $aWeekPeriodDates = [];
-        foreach ($aWeekPeriod as $value) {
+        foreach ($aWeekPeriod as $value) :
             array_push($aWeekPeriodDates, $value->format('Y-m-d'));
-        }
+        endforeach;
 
         $data = [
             'title'                 => 'Dashboard',

@@ -19,12 +19,12 @@ class ActivityLogModel extends Model
 
     public function getActivityLog($activity_id = false)
     {
-        if ($activity_id == false) {
+        if ($activity_id == false) :
             $this->select('activity_log.*, user.name, menu.title');
             $this->join('user', 'user.user_id = activity_log.user_id', 'left');
             $this->join('menu', 'menu.menu_id = activity_log.menu_id', 'left');
             return $this->orderBy('activity_log.activity_id', 'DESC');
-        }
+        endif;
         $this->join('menu', 'menu.menu_id = activity_log.menu_id', 'left');
         return $this->where(['activity_id' => $activity_id])->first();
     }

@@ -26,11 +26,11 @@ class VisitorModel extends Model
     function getOnlineVisitor($type)
     {
         $is_onlien  = time() - (60 * 3);
-        if ($type != NULL) {
+        if ($type != NULL) :
             return $this->where(['is_online >' => $is_onlien, 'type' => $type])->countAllResults();
-        } else {
+        else :
             return $this->where('is_online >', $is_onlien)->countAllResults();
-        }
+        endif;
     }
     function getYesterdayVisitor()
     {
@@ -50,17 +50,6 @@ class VisitorModel extends Model
         $this->where('type', $type);
         return $this->groupBy('DATE(`created_at`)')->get()->getResultArray();
     }
-
-    // public function getWeeklyGuestVisitor($type)
-    // {
-    //     $today = date("Y-m-d");
-    //     $week  = date("Y-m-d", mktime(0, 0, 0, date('m'), date('d') - 7, date('Y')));
-    //     $this->select('DATE(`created_at`) AS `date`, COUNT(DATE(`created_at`)) AS `totalVisitor`');
-    //     $this->where('created_at >=', $week);
-    //     $this->where('created_at <=', $today);
-    //     $this->where('type', 'guest');
-    //     return $this->groupBy('DATE(`created_at`)')->get()->getResultArray();
-    // }
 
     function getNameVisitor()
     {
