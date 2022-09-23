@@ -17,10 +17,12 @@ class AppConfig extends BaseController
 
     public function index()
     {
-        $requri     = \Config\Services::request();
-        $segment2        = $requri->uri->getSegment(2);
-        if ($segment2 != 'login') :
-            getVisitorData();
+        $request     = \Config\Services::request();
+        if ($request->uri->getTotalSegments() >= 1) :
+            $segment2   = $request->uri->getSegment(2);
+            if ($segment2 != 'login') :
+                getVisitorData();
+            endif;
         endif;
 
         $db    = \Config\Database::connect();
