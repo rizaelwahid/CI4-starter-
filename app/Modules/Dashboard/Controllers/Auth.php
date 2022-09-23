@@ -67,7 +67,11 @@ class Auth extends BaseController
                             'role_id'   => $user['role_id']
                         ];
                         session()->set($data);
-                        return redirect()->to('/dashboard');
+                        if (session()->last_url) :
+                            return redirect()->to(session()->last_url);
+                        else :
+                            return redirect()->to('/dashboard');
+                        endif;
                     else :
                         session()->setFlashdata('boo', 'The entered password not match with your account!');
                         return redirect()->to('/auth/login')->withInput();
