@@ -58,9 +58,9 @@ $background = (get_cookie('background') != NULL) ? get_cookie('background') : 'w
     function customCheckColor() {
         var logoHeader = $('.logo-header').attr('data-background-color');
         if (logoHeader !== "white") {
-            $('.logo-header .navbar-brand').attr('src', '/assets/layouts/img/logo.svg');
+            $('.logo-header .navbar-brand').attr('src', '/assets/layouts/img/<?= $AppConf['logo']; ?>');
         } else {
-            $('.logo-header .navbar-brand').attr('src', '/assets/layouts/img/logo2.svg');
+            $('.logo-header .navbar-brand').attr('src', '/assets/layouts/img/<?= $AppConf['logo']; ?>');
         }
     }
 

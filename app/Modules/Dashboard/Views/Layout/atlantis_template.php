@@ -5,7 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<title><?= $title; ?> | <?= $AppConf['siteName']; ?></title>
 	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
-	<link rel="icon" href="/assets/layouts/img/icon.ico" type="image/x-icon" />
+	<link rel="icon" href="/assets/layouts/img/<?= $AppConf['favicon']; ?>" type="image/x-icon" />
 
 	<!-- Fonts and icons -->
 	<script src="/assets/layouts/js/plugin/webfont/webfont.min.js"></script>
@@ -40,7 +40,7 @@
 			<div class="logo-header" data-background-color="blue">
 
 				<a href="/" class="logo">
-					<img src="/assets/layouts/img/logo.svg" alt="navbar brand" class="navbar-brand">
+					<img src="/assets/layouts/img/<?= $AppConf['logo']; ?>" alt="navbar brand" class="navbar-brand">
 				</a>
 				<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon">

@@ -88,12 +88,21 @@ class AppConfig extends BaseController
 
             $data['css']            = [''];
             $data['js']             = ['summernote'];
-            $data['NewJavaScript']  = ['summernote'];
+            $data['NewJavaScript']  = ['summernote', 'avatarPreview'];
 
             return view('\Modules\Dashboard\Views\website', $data);
         else :
             $rules = [
                 'siteName'      => [
+                    'rules'     => 'required',
+                ],
+                'phone'      => [
+                    'rules'     => 'required',
+                ],
+                'email'      => [
+                    'rules'     => 'required',
+                ],
+                'address'      => [
                     'rules'     => 'required',
                 ],
                 'aboutSite'      => [
@@ -109,7 +118,41 @@ class AppConfig extends BaseController
             endif;
 
             $array = $this->request->getPost();
-            $db         = \Config\Database::connect();
+            $db    = \Config\Database::connect();
+
+            // print "<pre>";
+            // var_dump($_FILES);
+            // var_dump($array);
+            // var_dump($fileLogo->getError());
+            // exit;
+
+            // $fileLogo = $this->request->getFile('logo');
+            // $oldLogoName = $this->request->getVar('logoOld');
+            // if ($fileLogo->getError() == 0) :
+            //     $logoName = $fileLogo->getRandomName();
+            //     $fileLogo->move('assets/layouts/img/', $logoName);
+
+            //     unlink('assets/layouts/img/' . $oldLogoName);
+            // endif;
+
+            $fileFavicaon = $this->request->getFile('favicon');
+            $oldFaviconName = $this->request->getVar('faviconOld');
+            if ($fileFavicaon->getError() == 0) :
+                $faviconName = $fileFavicaon->getRandomName();
+                $fileFavicaon->move('assets/layouts/img/', $faviconName);
+                unlink('assets/layouts/img/' . $oldFaviconName);
+            endif;
+
+            $newArray = [
+                // 'logo'      => $logoName,
+                'favicon'   => $faviconName,
+            ];
+
+            $array = array_merge($array, $newArray);
+
+            // print "<pre>";
+            // var_dump($array);
+            // exit;
 
             foreach ($array as $key => $value) :
                 $result[] = $db->table('app_config')->set('param', $value)->where(['config' => $key])->update();

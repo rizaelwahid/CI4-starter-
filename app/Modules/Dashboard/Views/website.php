@@ -14,6 +14,65 @@ if ($viewer == 'webbasicinfo') : ?>
                 </div>
             </div>
         </div>
+        <input type="hidden" name="logoOld" value="<?= $AppConf['logo']; ?>">
+        <div class="form-group row">
+            <label for="logo" class="col-sm-2 col-form-label">Logo</label>
+            <div class="col-sm-2">
+                <img src="/assets/layouts/img/<?= $AppConf['logo']; ?>" class="img-thumbnail img-preview" style="width: 300px;">
+            </div>
+            <div class="col-sm-8">
+                <div class="custom-file">
+                    <input type="file" name="logo" class="custom-file-input <?= ($validation->hasError('logo')) ? 'is-invalid' : ''; ?>" id="logo">
+                    <label class="custom-file-label" for="logo" data-browse="Browse"><?= $AppConf['logo']; ?></label>
+                    <div class="invalid-feedback">
+                        <?= ($validation->getError('logo')); ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" name="faviconOld" value="<?= $AppConf['favicon']; ?>">
+        <div class="form-group row">
+            <label for="favicon" class="col-sm-2 col-form-label">Favicon</label>
+            <div class="col-sm-2">
+                <img src="/assets/layouts/img/<?= $AppConf['favicon']; ?>" class="img-thumbnail img-preview" style="width: 300px;">
+            </div>
+            <div class="col-sm-8">
+                <div class="custom-file">
+                    <input type="file" name="favicon" class="custom-file-input <?= ($validation->hasError('favicon')) ? 'is-invalid' : ''; ?>" id="favicon">
+                    <label class="custom-file-label" for="favicon" data-browse="Browse"><?= $AppConf['favicon']; ?></label>
+                    <div class="invalid-feedback">
+                        <?= ($validation->getError('favicon')); ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="phone" class="col-sm-2 col-form-label">Phone</label>
+            <div class="col-sm-10">
+                <input value="<?= (old('phone')) ? old('phone') : $AppConf['phone']; ?>" type="text" name="phone" class="form-control <?= ($validation->hasError('phone')) ? 'is-invalid' : ''; ?>" id="phone" placeholder="Please input a site phone">
+                <div class="invalid-feedback">
+                    <?= ($validation->getError('phone')); ?>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="email" class="col-sm-2 col-form-label">Email</label>
+            <div class="col-sm-10">
+                <input value="<?= (old('email')) ? old('email') : $AppConf['email']; ?>" type="text" name="email" class="form-control <?= ($validation->hasError('email')) ? 'is-invalid' : ''; ?>" id="email" placeholder="Please input a site email">
+                <div class="invalid-feedback">
+                    <?= ($validation->getError('email')); ?>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="address" class="col-sm-2 col-form-label">Address</label>
+            <div class="col-sm-10">
+                <input value="<?= (old('address')) ? old('address') : $AppConf['address']; ?>" type="text" name="address" class="form-control <?= ($validation->hasError('address')) ? 'is-invalid' : ''; ?>" id="address" placeholder="Please input a site address">
+                <div class="invalid-feedback">
+                    <?= ($validation->getError('address')); ?>
+                </div>
+            </div>
+        </div>
         <div class="form-group row">
             <label for="summernote" class="col-sm-2 col-form-label">About Site</label>
             <div class="col-sm-10">
