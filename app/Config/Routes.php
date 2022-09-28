@@ -118,7 +118,9 @@ $routes->group("user", ["namespace" => "\Modules\Dashboard\Controllers", "filter
 	$routes->add("view/(:num)", "User::view/$1");
 	$routes->add("edit/(:num)", "User::edit/$1");
 	$routes->add("resetpassword/(:num)", "User::resetpassword/$1");
+	$routes->add("resetPasswordProcess/(:num)", "User::resetPasswordProcess/$1");
 	$routes->add("accountSetting/(:num)", "User::accountSetting/$1");
+	$routes->add("colorthemes/(:num)", "User::colorthemes/$1");
 	$routes->add("trash", "User::trash");
 	$routes->delete("(:num)", "User::delete/$1");
 	$routes->add("restore/(:num)", "User::restore/$1");
