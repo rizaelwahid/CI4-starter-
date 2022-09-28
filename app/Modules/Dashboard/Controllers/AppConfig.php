@@ -120,20 +120,17 @@ class AppConfig extends BaseController
             $array = $this->request->getPost();
             $db    = \Config\Database::connect();
 
-            // print "<pre>";
-            // var_dump($_FILES);
-            // var_dump($array);
-            // var_dump($fileLogo->getError());
-            // exit;
-
-            // $fileLogo = $this->request->getFile('logo');
-            // $oldLogoName = $this->request->getVar('logoOld');
-            // if ($fileLogo->getError() == 0) :
-            //     $logoName = $fileLogo->getRandomName();
-            //     $fileLogo->move('assets/layouts/img/', $logoName);
-
-            //     unlink('assets/layouts/img/' . $oldLogoName);
-            // endif;
+            $fileLogo = $this->request->getFile('logo');
+            $oldLogoName = $this->request->getVar('logoOld');
+            if ($fileLogo->getError() == 0) :
+                $logoName = $fileLogo->getRandomName();
+                $fileLogo->move('assets/layouts/img/', $logoName);
+                unlink('assets/layouts/img/' . $oldLogoName);
+                $newArray = [
+                    'logo'      => $logoName,
+                ];
+                $array = array_merge($array, $newArray);
+            endif;
 
             $fileFavicaon = $this->request->getFile('favicon');
             $oldFaviconName = $this->request->getVar('faviconOld');
@@ -141,18 +138,11 @@ class AppConfig extends BaseController
                 $faviconName = $fileFavicaon->getRandomName();
                 $fileFavicaon->move('assets/layouts/img/', $faviconName);
                 unlink('assets/layouts/img/' . $oldFaviconName);
+                $newArray = [
+                    'favicon'   => $faviconName,
+                ];
+                $array = array_merge($array, $newArray);
             endif;
-
-            $newArray = [
-                // 'logo'      => $logoName,
-                'favicon'   => $faviconName,
-            ];
-
-            $array = array_merge($array, $newArray);
-
-            // print "<pre>";
-            // var_dump($array);
-            // exit;
 
             foreach ($array as $key => $value) :
                 $result[] = $db->table('app_config')->set('param', $value)->where(['config' => $key])->update();
