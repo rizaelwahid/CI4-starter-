@@ -22,7 +22,7 @@ if ($viewer == '') : ?>
         </div>
     </form>
 
-    <form action="/activitylog/delete" method="POST">
+    <form action="/activitylog/deleteActivity" method="POST">
         <?php csrf_field(); ?>
         <div class="table-responsive">
             <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
@@ -55,7 +55,7 @@ if ($viewer == '') : ?>
                                 </td>
                                 <td class="text-center"><?= $i++; ?></td>
                                 <td>
-                                    <a class="text-decoration-none" href="/user/view/<?= $data['user_id']; ?>"><?= $data['name']; ?> </a> <a class="text-decoration-none" href="<?= $data['reference_id']; ?>"><?= $data['activity']; ?></a> module <?= $data['title']; ?> about <?= TimeAgo(strtotime($data['created_at'])); ?> ago.
+                                    <a class="text-decoration-none" href="/user/profile/<?= $data['user_id']; ?>"><?= $data['name']; ?></a> <?= $data['activity']; ?> <a class="text-decoration-none" href="<?= $data['menu_id']; ?>"><?= $data['title']; ?></a> about <?= TimeAgo(strtotime($data['created_at'])); ?> ago.
                                 </td>
                             </tr>
                         <?php endforeach; ?>
