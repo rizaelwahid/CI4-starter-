@@ -32,6 +32,7 @@ class VisitorModel extends Model
             return $this->where('is_online >', $is_onlien)->countAllResults();
         endif;
     }
+
     function getYesterdayVisitor()
     {
         $yesterday  = date("Y-m-d", mktime(0, 0, 0, date('m'), date('d') - 1, date('Y')));
@@ -43,6 +44,7 @@ class VisitorModel extends Model
         $today      = date("Y-m-d");
         return $this->selectCount('DATE(created_at)', 'total')->where('DATE(created_at)', $today)->countAllResults();
     }
+
     public function getNumbVisitorByPriod($type, $array)
     {
         $this->select('DATE(`created_at`) AS `date`, COUNT(DATE(`created_at`)) AS `totalVisitor`');

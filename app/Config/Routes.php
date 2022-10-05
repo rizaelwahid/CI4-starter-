@@ -137,4 +137,9 @@ $routes->group("role", ["namespace" => "\Modules\Dashboard\Controllers", "filter
 	$routes->add("restore/(:num)", "Role::restore/$1");
 	$routes->delete("harddelete/(:num)", "Role::harddelete/$1");
 });
+
+$routes->group("activitylog", ["namespace" => "\Modules\Dashboard\Controllers", "filter" => "authrbac"], function ($routes) {
+	$routes->add("/", "Activitylog::index");
+	$routes->add("deleteActivity", "Activitylog::delete");
+});
 ## Routes Dashboard Module End ##

@@ -46,8 +46,8 @@ class Dashboard extends BaseController
             'onlineGuestVisitor'    => $this->VisitorModel->getOnlineVisitor('guest'),
             'onlineRegVisitor'      => $this->VisitorModel->getOnlineVisitor('registered'),
             'nameVisitor'           => $this->VisitorModel->getNameVisitor(),
-            'weeklyUserVisitor'     => $this->VisitorModel->getNumbVisitorByPriod('guest', $aWeekPeriodDates),
-            'weeklyGuestVisitor'    => $this->VisitorModel->getNumbVisitorByPriod('registered', $aWeekPeriodDates),
+            'weeklyGuestVisitor'    => $this->VisitorModel->getNumbVisitorByPriod('guest', $aWeekPeriodDates),
+            'weeklyUserVisitor'     => $this->VisitorModel->getNumbVisitorByPriod('registered', $aWeekPeriodDates),
             'activityLog'           => $this->ActivityLogModel->getActivityLog()->limit(5)->get()->getResultArray(),
         ];
 
